@@ -4,7 +4,7 @@ import { NavLink, useLocation } from 'react-router-dom';
 import SidebarLinkGroup from './SidebarLinkGroup';
 
 function Sidebar({ sidebarOpen, setSidebarOpen, data, currentPage, setPage }) {
-  const email = data.email;
+  const email = "biswassagar927@gmail.com";
   const location = useLocation();
   const { pathname } = location;
 

@@ -5,9 +5,9 @@ function Messages() {
   return (
     <div className="col-span-full xl:col-span-8 bg-white shadow-lg rounded-sm border border-slate-200">
       <ChatEngine
-        projectID='e16fe90b-12e0-4968-a2eb-45592c3996a2'
-        userName='doctor'
-        userSecret='secret'
+        projectID='cececc70-f0eb-4ec9-a0c5-2c4dfbed12fe'
+        userName='krish54'
+        userSecret='hello'
       />
     </div>
   );

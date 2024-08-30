@@ -12,8 +12,8 @@ import { useLocation } from "react-router-dom"
 
 function Dashboard() {
   const { state } = useLocation();
-  localStorage.setItem("email", state.email);
-  localStorage.setItem("sessionKey", state.sessionKey);
+  localStorage.setItem("email", "biswassagar927@gmail.com");
+  localStorage.setItem("sessionKey","1234567890");
 
   const [currentPage, setCurrentPage] = useState("Basic");
 
