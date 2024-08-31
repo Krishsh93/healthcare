@@ -5,6 +5,7 @@ import Image03 from '../../images/user-36-07.jpg';
 import Image04 from '../../images/user-36-08.jpg';
 import Image05 from '../../images/user-36-09.jpg';
 import PatientAnalysis from './PatientAnalysis';
+import ImageUpload from './Hemorrhagic';
 
 function Doctors() {
   const [showPatientAnalysis, setShowPatientAnalysis] = useState(false);
@@ -59,7 +60,7 @@ function Doctors() {
   return (
     <div className="col-span-full xl:col-span-6 bg-white shadow-lg rounded-sm border border-slate-200">
       {showPatientAnalysis ? (
-        <PatientAnalysis />
+        <ImageUpload />
       ) : (
         <>
           <header className="px-5 py-4 border-b border-slate-100">
