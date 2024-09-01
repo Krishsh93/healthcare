@@ -1,3 +1,5 @@
+// frontend>src>components>Header.jsx
+
 import { Fragment, useState } from 'react'
 import { Dialog, Disclosure, Popover, Transition } from '@headlessui/react'
 import { ChevronDownIcon, PhoneIcon, PlayCircleIcon } from '@heroicons/react/20/solid'
@@ -9,50 +11,48 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faUser, faUserDoctor, faHospital, faHeartCircleCheck } from '@fortawesome/free-solid-svg-icons'
 import { NavLink } from 'react-router-dom';
 
+
 const users = [
-  { name: 'Patient Login', description: 'Book appointment & get treatment', to: "/patient/login", icon: faUser },
-  { name: 'Doctor Login', description: 'Check up patients from your home', to: '/doctor/login', icon: faUserDoctor },
-  { name: 'Hospital Login', description: 'Upload patient\'s reports & bills', to: '/', icon: faHospital },
-  { name: 'Insurance Company Login', description: 'Always ready to save your customers life', to: '/', icon: faHeartCircleCheck }
+  { name: 'Patient Login', description: 'Get AI-driven diagnosis, chat with our bot, and receive prescriptions', to: "/patient/login", icon: faUser },
+  { name: 'Doctor Login', description: 'Review AI diagnoses, manage patients, and provide prescriptions', to: '/doctor/login', icon: faUserDoctor }
 ]
 const callsToAction = [
   { name: 'Watch demo', to: '/', icon: PlayCircleIcon },
-  { name: 'Contact', to: '/', icon: PhoneIcon },
+  { name: 'Contact', to: '#contact', icon: PhoneIcon },
 ]
+
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
 }
 
+
 export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
+
   return (
-    <header className="bg-white">
-      <nav className="mx-auto flex max-w-7xl items-center justify-between p-6 lg:px-8" aria-label="Global">
-        <div className="flex lg:flex-1">
-          <NavLink to="/" className="-m-1.5 p-1.5 text-sm font-semibold leading-6 text-gray-900">
-            <span className="sr-only">E-Health Management System</span>
-            <img className="h-8 w-auto float-left" src="/logo.png" alt="" />E-Health Management System
+    <header style={{ backgroundColor: 'white' }}>
+      <nav style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '1rem', maxWidth: '1200px', margin: '0 auto' }} aria-label="Global">
+        <div style={{ display: 'flex', alignItems: 'center' }}>
+          <NavLink to="/" style={{ display: 'flex', alignItems: 'center', textDecoration: 'none', color: '#1a202c', fontSize: '1.25rem', fontWeight: 'bold' }}>
+            <img src="/logo.png" alt="Logo" style={{ height: '2rem', marginRight: '0.5rem' }} />
+            AI-Enhanced Medical Diagnostics System
           </NavLink>
         </div>
-        <div className="flex lg:hidden">
-          <button
-            type="button"
-            className="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-gray-700"
-            onClick={() => setMobileMenuOpen(true)}
-          >
-            <span className="sr-only">Open main menu</span>
-            <Bars3Icon className="h-6 w-6" aria-hidden="true" />
-          </button>
+        <div style={{ flex: 1, display: 'flex', justifyContent: 'center' }}>
+          <a href="#features" style={{ margin: '0 1rem', textDecoration: 'none', color: '#1a202c', fontSize: '0.875rem', fontWeight: '600' }}>Features</a>
+          <a href="#contact" style={{ margin: '0 1rem', textDecoration: 'none', color: '#1a202c', fontSize: '0.875rem', fontWeight: '600' }}>About</a>
+          <NavLink to="/" style={{ margin: '0 1rem', textDecoration: 'none', color: '#1a202c', fontSize: '0.875rem', fontWeight: '600' }}>GitHub</NavLink>
+          <NavLink to="/" style={{ margin: '0 1rem', textDecoration: 'none', color: '#1a202c', fontSize: '0.875rem', fontWeight: '600' }}>Demo</NavLink>
+          <NavLink to="/" style={{ margin: '0 1rem', textDecoration: 'none', color: '#1a202c', fontSize: '0.875rem', fontWeight: '600' }}>Presentation</NavLink>
         </div>
-        <Popover.Group className="hidden lg:flex lg:gap-x-12">
+        <div style={{ display: 'flex', alignItems: 'center' }}>
           <Popover className="relative">
-            <Popover.Button className="flex items-center gap-x-1 text-sm font-semibold leading-6 text-gray-900">
+            <Popover.Button style={{ display: 'flex', alignItems: 'center', textDecoration: 'none', color: '#1a202c', fontSize: '0.875rem', fontWeight: '600' }}>
+              <ChevronDownIcon style={{ height: '1.25rem', width: '1.25rem', color: '#9ca3af', marginRight: '0.25rem' }} aria-hidden="true" />
               Login
-              <ChevronDownIcon className="h-5 w-5 flex-none text-gray-400" aria-hidden="true" />
             </Popover.Button>
-
             <Transition
               as={Fragment}
               enter="transition ease-out duration-200"
@@ -61,139 +61,41 @@ export default function Header() {
               leave="transition ease-in duration-150"
               leaveFrom="opacity-100 translate-y-0"
               leaveTo="opacity-0 translate-y-1"
+             
             >
-              <Popover.Panel className="absolute -left-8 top-full z-10 mt-3 w-screen max-w-md overflow-hidden rounded-3xl bg-white shadow-lg ring-1 ring-gray-900/5">
-                <div className="p-4">
+              <Popover.Panel className="absolute left-0 top-full z-10 mt-3 w-screen max-w-md overflow-hidden rounded-3xl bg-white shadow-lg ring-1 ring-gray-900/5 transform -translate-x-1/2">
+              <div className="p-4">
                   {users.map((item) => (
                     <div
                       key={item.name}
-                      className="group relative flex items-center gap-x-6 rounded-lg p-4 text-sm leading-6 hover:bg-gray-50"
+                      style={{ display: 'flex', alignItems: 'center', gap: '1.5rem', borderRadius: '0.5rem', padding: '1rem', fontSize: '0.875rem', lineHeight: '1.5rem', backgroundColor: 'white', transition: 'background-color 0.3s' }}
+                      onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#f9fafb'}
+                      onMouseLeave={(e) => e.currentTarget.style.backgroundColor = 'white'}
                     >
-                      <div className="flex h-11 w-11 flex-none items-center justify-center rounded-lg bg-gray-50 group-hover:bg-white">
+                      <div style={{ display: 'flex', height: '2.75rem', width: '2.75rem', flexShrink: 0, alignItems: 'center', justifyContent: 'center', borderRadius: '0.5rem', backgroundColor: '#f9fafb', transition: 'background-color 0.3s' }}
+                        onMouseEnter={(e) => e.currentTarget.style.backgroundColor = 'white'}
+                        onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#f9fafb'}
+                      >
                         <FontAwesomeIcon className="fa-2x" icon={item.icon} />
                       </div>
-                      <div className="flex-auto">
-                        <NavLink to={item.to} className="block font-semibold text-gray-900">
+                      <div style={{ flex: '1 1 auto' }}>
+                        <NavLink to={item.to} style={{ display: 'block', fontWeight: '600', color: '#1a202c' }}>
                           {item.name}
-                          <span className="absolute inset-0" />
                         </NavLink>
-                        <p className="mt-1 text-gray-600">{item.description}</p>
+                        <p style={{ marginTop: '0.25rem', color: '#6b7280' }}>{item.description}</p>
                       </div>
                     </div>
-                  ))}
-                </div>
-                <div className="grid grid-cols-2 divide-x divide-gray-900/5 bg-gray-50">
-                  {callsToAction.map((item) => (
-                    <NavLink
-                      key={item.name}
-                      to={item.to}
-                      className="flex items-center justify-center gap-x-2.5 p-3 text-sm font-semibold leading-6 text-gray-900 hover:bg-gray-100"
-                    >
-                      <item.icon className="h-5 w-5 flex-none text-gray-400" aria-hidden="true" />
-                      {item.name}
-                    </NavLink>
                   ))}
                 </div>
               </Popover.Panel>
             </Transition>
           </Popover>
-
-          <a href="#features" className="text-sm font-semibold leading-6 text-gray-900">
-            Features
-          </a>
-          <NavLink to="/" className="text-sm font-semibold leading-6 text-gray-900">
-            About
+          <NavLink to="/patient/Register" style={{ marginLeft: '1.5rem', fontSize: '0.875rem', fontWeight: '600', lineHeight: '1.5rem', color: 'white', backgroundColor: '#3182ce', padding: '0.5rem 1rem', borderRadius: '0.25rem' }}>
+            Get Started for Free
           </NavLink>
-          <NavLink to="/" className="text-sm font-semibold leading-6 text-gray-900">
-            Team
-          </NavLink>
-        </Popover.Group>
-        <div className="hidden lg:flex lg:flex-1 lg:justify-end">
-          <a target='_blank' rel="noreferrer" href="https://github.com/MrSagarBiswas/E-Health-Management-System" className="text-sm font-semibold leading-6 text-gray-900">
-            GitHub <span aria-hidden="true">&rarr;</span>
-          </a>
         </div>
       </nav>
-      <Dialog as="div" className="lg:hidden" open={mobileMenuOpen} onClose={setMobileMenuOpen}>
-        <div className="fixed inset-0 z-10" />
-        <Dialog.Panel className="fixed inset-y-0 right-0 z-10 w-full overflow-y-auto bg-white px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10">
-          <div className="flex items-center justify-between">
-            <NavLink to="/" className="-m-1.5 p-1.5 text-sm font-semibold leading-6 text-gray-900">
-              <span className="sr-only">E-Health Management System</span>
-              <img className="h-8 w-auto float-left" src="https://www.pngkit.com/png/full/113-1133314_logo-for-hospital-management-system-in-png.png" alt="E-Health Management System" />E-Health Management System
-            </NavLink>
-            <button
-              type="button"
-              className="-m-2.5 rounded-md p-2.5 text-gray-700"
-              onClick={() => setMobileMenuOpen(false)}
-            >
-              <span className="sr-only">Close menu</span>
-              <XMarkIcon className="h-6 w-6" aria-hidden="true" />
-            </button>
-          </div>
-          <div className="mt-6 flow-root">
-            <div className="-my-6 divide-y divide-gray-500/10">
-              <div className="space-y-2 py-6">
-                <Disclosure as="div" className="-mx-3">
-                  {({ open }) => (
-                    <>
-                      <Disclosure.Button className="flex w-full items-center justify-between rounded-lg py-2 pl-3 pr-3.5 text-base font-semibold leading-7 hover:bg-gray-50">
-                        Login
-                        <ChevronDownIcon
-                          className={classNames(open ? 'rotate-180' : '', 'h-5 w-5 flex-none')}
-                          aria-hidden="true"
-                        />
-                      </Disclosure.Button>
-                      <Disclosure.Panel className="mt-2 space-y-2">
-                        {users.map((item) => (
-                          <NavLink
-                            key={item.name}
-                            to={item.to}
-                            className="block rounded-lg py-2 pl-6 pr-3 text-sm font-semibold leading-7 text-gray-900 hover:bg-gray-50"
-                          >
-                            {item.name}
-                          </NavLink>
-                        ))}
-                      </Disclosure.Panel>
-                    </>
-                  )}
-                </Disclosure>
-              </div>
-              <div className="py-6">
-                <NavLink to="/"
-                  className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
-                >
-                  Features
-                </NavLink>
-                <NavLink
-                  to="/"
-                  className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
-                >
-                  About
-                </NavLink>
-                <NavLink
-                  to="/"
-                  className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
-                >
-                  Team
-                </NavLink>
-                <NavLink
-                  to="/"
-                  className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
-                >
-                  Contacts
-                </NavLink>
-                <NavLink target='_blank'
-                  to="https://github.com/MrSagarBiswas/E-Health-Management-System"
-                  className="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
-                >
-                  GitHub
-                </NavLink>
-              </div>
-            </div>
-          </div>
-        </Dialog.Panel>
-      </Dialog>
     </header>
   )
 }
+

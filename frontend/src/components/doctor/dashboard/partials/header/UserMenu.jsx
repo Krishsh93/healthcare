@@ -5,8 +5,8 @@ import Transition from '../../utils/Transition';
 import UserAvatar from '../../images/user-avatar-32.png';
 
 function UserMenu({ data, setPage }) {
-  // const user = data.profile.name.FName + " " + data.profile.name.LName;
-  // const degree = data.profile.degree;
+  const user = data.profile.name.FName + " " + data.profile.name.LName;
+  const degree = data.profile.degree;
 
   const [dropdownOpen, setDropdownOpen] = useState(false);
 
@@ -44,7 +44,7 @@ function UserMenu({ data, setPage }) {
       >
         <img className="w-8 h-8 rounded-full" src={UserAvatar} width="32" height="32" alt="User" />
         <div className="flex items-center truncate">
-          {/* <span className="truncate ml-2 text-sm font-medium group-hover:text-slate-800">Dr. {user}</span> */}
+          <span className="truncate ml-2 text-sm font-medium group-hover:text-slate-800">Dr. {user}</span>
           <svg className="w-3 h-3 shrink-0 ml-1 fill-current text-slate-400" viewBox="0 0 12 12">
             <path d="M5.9 11.4L.5 6l1.4-1.4 4 4 4-4L11.3 6z" />
           </svg>
@@ -67,8 +67,8 @@ function UserMenu({ data, setPage }) {
           onBlur={() => setDropdownOpen(false)}
         >
           <div className="pt-0.5 pb-2 px-3 mb-1 border-b border-slate-200">
-            {/* <div className="font-medium text-slate-800">Dr. {user}</div> */}
-            {/* <div className="text-xs text-slate-500 italic">{degree}</div> */}
+            <div className="font-medium text-slate-800">Dr. {user}</div>
+            <div className="text-xs text-slate-500 italic">{degree}</div>
           </div>
           <ul>
             <li>

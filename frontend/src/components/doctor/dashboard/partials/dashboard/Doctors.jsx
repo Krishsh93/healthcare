@@ -1,66 +1,41 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Image01 from '../../images/user-36-05.jpg';
-import Image02 from '../../images/user-36-06.jpg';
+import Image02 from '../../images/user-36-04.jpg';
 import Image03 from '../../images/user-36-07.jpg';
 import Image04 from '../../images/user-36-08.jpg';
 import Image05 from '../../images/user-36-09.jpg';
 import PatientAnalysis from './PatientAnalysis';
-import ImageUpload from './Hemorrhagic';
+import axios from 'axios';
 
 function Doctors() {
+  const [selectedPatient, setSelectedPatient] = useState(null);
+  const [patients, setPatients] = useState([]);
   const [showPatientAnalysis, setShowPatientAnalysis] = useState(false);
 
-  const customers = [
-    {
-      id: '0',
-      image: Image01,
-      name: 'Alex Shatov',
-      email: 'alexshatov@gmail.com',
-      location: '🇺🇸',
-      date: '13/05/2023',
-    },
-    {
-      id: '1',
-      image: Image02,
-      name: 'Philip Harbach',
-      email: 'philip.h@gmail.com',
-      location: '🇩🇪',
-      date: '13/05/2023',
-    },
-    {
-      id: '2',
-      image: Image03,
-      name: 'Mirko Fisuk',
-      email: 'mirkofisuk@gmail.com',
-      location: '🇫🇷',
-      date: '13/05/2023',
-    },
-    {
-      id: '3',
-      image: Image04,
-      name: 'Olga Semklo',
-      email: 'olga.s@cool.design',
-      location: '🇮🇹',
-      date: '13/05/2023',
-    },
-    {
-      id: '4',
-      image: Image05,
-      name: 'Burak Long',
-      email: 'longburak@gmail.com',
-      location: '🇬🇧',
-      date: '13/05/2023',
-    },
-  ];
+  useEffect(() => {
+    fetchPatients();
+  }, []);
 
-  const handlePatientAnalysisClick = () => {
+  const fetchPatients = async () => {
+    try {
+      const response = await axios.get(`${process.env.REACT_APP_API}/patients`);
+      setPatients(response.data);
+      console.log(response.data);
+    } catch (err) {
+      console.error(err);
+      setPatients([]); // Clear patients data if there's an error
+    }
+  };
+
+  const handlePatientAnalysisClick = (patient) => {
+    setSelectedPatient(patient);
     setShowPatientAnalysis(true);
   };
 
   return (
     <div className="col-span-full xl:col-span-6 bg-white shadow-lg rounded-sm border border-slate-200">
       {showPatientAnalysis ? (
-        <ImageUpload />
+        <PatientAnalysis selectedPatient={selectedPatient}/>
       ) : (
         <>
           <header className="px-5 py-4 border-b border-slate-100">
@@ -78,7 +53,7 @@ function Doctors() {
                       <div className="font-semibold text-left">Email</div>
                     </th>
                     <th className="p-2 whitespace-nowrap">
-                      <div className="font-semibold text-left">Date</div>
+                      <div className="font-semibold text-left">Gender</div>
                     </th>
                     <th className="p-2 whitespace-nowrap">
                       <div className="font-semibold text-center">Patient Analysis</div>
@@ -86,32 +61,36 @@ function Doctors() {
                   </tr>
                 </thead>
                 <tbody className="text-sm divide-y divide-slate-100">
-                  {customers.map((customer) => (
-                    <tr key={customer.id}>
+                  {patients.map((patient) => (
+                    <tr key={patient._id}>
                       <td className="p-2 whitespace-nowrap">
                         <div className="flex items-center">
                           <div className="w-10 h-10 shrink-0 mr-2 sm:mr-3">
                             <img
                               className="rounded-full"
-                              src={customer.image}
+                              src={Image02}
                               width="40"
                               height="40"
-                              alt={customer.name}
+                              alt="Patient"
                             />
                           </div>
-                          <div className="font-medium text-slate-800">{customer.name}</div>
+                          <div className="font-medium text-slate-800">
+                            {patient.profile?.name?.FName} {patient.profile?.name?.LName}
+                          </div>
                         </div>
                       </td>
                       <td className="p-2 whitespace-nowrap">
-                        <div className="text-left">{customer.email}</div>
+                        <div className="text-left">{patient.email}</div>
                       </td>
                       <td className="p-2 whitespace-nowrap">
-                        <div className="text-left font-medium text-green-500">{customer.date}</div>
+                        <div className="text-left font-medium text-green-500">
+                          {patient.profile?.gender}
+                        </div>
                       </td>
                       <td className="p-2 whitespace-nowrap">
                         <button
                           className="relative inline-flex items-center justify-center p-4 px-6 py-3 overflow-hidden font-medium text-indigo-600 transition duration-300 ease-out border-2 border-purple-500 rounded-full shadow-md group"
-                          onClick={handlePatientAnalysisClick}
+                          onClick={()=>handlePatientAnalysisClick(patient)}
                         >
                           <span className="absolute inset-0 flex items-center justify-center w-full h-full text-white duration-300 -translate-x-full bg-purple-500 group-hover:translate-x-0 ease">
                             <svg

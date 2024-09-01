@@ -3,17 +3,18 @@ import React, { useEffect, useState } from 'react';
 import Sidebar from './partials/Sidebar';
 import Header from './partials/Header';
 import WelcomeBanner from './partials/dashboard/WelcomeBanner';
-import BasicHealthReport from './partials/dashboard/BasicHealthReport';
+
 import Doctors from './partials/dashboard/Doctors';
 import Settings from './partials/dashboard/Settings';
 import Messages from './partials/dashboard/Messages';
 import Appoinments from './partials/dashboard/Appoinments';
 import { useLocation } from "react-router-dom"
+import PatientDashboard from './partials/dashboard/PatientDashboard';
 
 function Dashboard() {
   const { state } = useLocation();
-  localStorage.setItem("email", "biswassagar927@gmail.com");
-  localStorage.setItem("sessionKey","1234567890");
+  localStorage.setItem("email", state.email);
+  localStorage.setItem("sessionKey",state.sessionKey);
 
   const [currentPage, setCurrentPage] = useState("Basic");
 
@@ -31,9 +32,7 @@ function Dashboard() {
 
   function CurrentDashboard() {
     console.log("Current Dashboard");
-    if (currentPage === "Basic") {
-      return <BasicHealthReport />;
-    } else if (currentPage === "Settings") {
+     if (currentPage === "Settings") {
       return <Settings data={state} setPage={setPage} />
     } else if (currentPage === "Doctors") {
       return <Doctors />
@@ -42,7 +41,10 @@ function Dashboard() {
     } else if (currentPage === "Appoinments") {
       return <Appoinments />
     }
-  }
+    else if(currentPage === "Bills"){
+      return <PatientDashboard />
+    }
+}
 
   return (
     <div className="flex h-screen overflow-hidden">

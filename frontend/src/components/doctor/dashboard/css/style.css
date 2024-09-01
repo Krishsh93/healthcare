@@ -11,3 +11,7 @@
 @import 'additional-styles/theme.css';
 
 @import 'tailwindcss/utilities';
+.circular-progress-container {
+    border: 1px solid red; /* Temporary border to see container */
+    background-color: #f0f0f0; /* Temporary background color */
+  }

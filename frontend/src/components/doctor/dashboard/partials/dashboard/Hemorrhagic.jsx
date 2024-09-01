@@ -1,51 +1,91 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Pie } from 'react-chartjs-2';
-import { Chart as ChartJS, Title, Tooltip, Legend, ArcElement } from 'chart.js';
+import { Pie, Line } from 'react-chartjs-2';
+import { Chart as ChartJS, Title, Tooltip, Legend, ArcElement, LineElement, PointElement, CategoryScale, LinearScale } from 'chart.js';
+
 
 // Register Chart.js components
-ChartJS.register(Title, Tooltip, Legend, ArcElement);
+ChartJS.register(Title, Tooltip, Legend, ArcElement, LineElement, PointElement, CategoryScale, LinearScale);
 
-const ImageUpload = () => {
+
+const ImageUpload = ({setShowPatientAnalysis,showPatientAnalysis,showHemorrhagic,setShowHemorrhagic,patientEmail,fetchhistoricalData,getLineChartData,historicalData}) => {
+  
   const [file, setFile] = useState(null);
   const [prediction, setPrediction] = useState(null);
   const [error, setError] = useState(null);
+  
+  
+  
+  
+
 
   const handleFileChange = (event) => {
     setFile(event.target.files[0]);
   };
 
+
   const handleSubmit = async (event) => {
     event.preventDefault();
+
 
     if (!file) {
       setError("Please select a file.");
       return;
     }
 
+
     const formData = new FormData();
     formData.append('file', file);
 
+
     try {
-      const response = await axios.post('http://localhost:5000/predict', formData, {
+      const response = await axios.post(`http://localhost:5000//predict_hemorrhage`, formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
       });
 
+
       setPrediction(response.data);
       setError(null);
+
+
+      const predictionData = {
+        normalPercentage: prediction[0][0]?.toFixed(4) * 100,
+        hemorrhagicPercentage: prediction[0][1]?.toFixed(4) * 100,
+      };
+
+
+       // Replace with dynamic email as needed
+
+      console.log(patientEmail);
+      console.log(predictionData);
+      await axios.post("http://localhost:4000/patientrecord", {
+        email: patientEmail,
+        prediction: predictionData
+      }, {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      }).then((response) => {}).catch((error) => {
+        console.error(error);
+      });
+      fetchhistoricalData();
+
     } catch (err) {
       setError("Error uploading the file.");
       console.error(err);
     }
   };
 
+
   const getChartData = () => {
     if (!prediction) return {};
 
-    const normalPercentage = prediction[0][0].toFixed(4)*100 || 0;
-    const hemorrhagicPercentage = prediction[0][1].toFixed(4)*100 || 0;
+
+    const normalPercentage = prediction[0][0].toFixed(4) * 100 || 0;
+    const hemorrhagicPercentage = prediction[0][1].toFixed(4) * 100 || 0;
+
 
     return {
       labels: ['Healthy', 'Possible Hemorrhage'],
@@ -57,6 +97,10 @@ const ImageUpload = () => {
       }],
     };
   };
+
+
+  
+
 
   return (
     <div className="flex flex-col items-center p-4">
@@ -74,6 +118,15 @@ const ImageUpload = () => {
         >
           Submit
         </button>
+        <button
+          type="button"
+          className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition"
+          onClick={()=>{
+            setShowHemorrhagic(false)
+            setShowPatientAnalysis(!showPatientAnalysis)}}
+        >
+          Go to Patient Dashboard 
+        </button>
       </form>
       {error && <p className="text-red-500 mt-4">{error}</p>}
       {prediction && (
@@ -82,8 +135,17 @@ const ImageUpload = () => {
           <Pie data={getChartData()} />
         </div>
       )}
+      {historicalData && (
+        <div className="mt-4 w-full">
+          <h2 className="text-xl font-semibold mb-2">Previous Diagnosis History:</h2>
+          <Line data={getLineChartData()} />
+        </div>
+      )}
     </div>
   );
 };
 
+
 export default ImageUpload;
+
+

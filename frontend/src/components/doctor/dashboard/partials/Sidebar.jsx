@@ -69,7 +69,8 @@ function Sidebar({ sidebarOpen, setSidebarOpen, data, currentPage, setPage }) {
           {/* Logo */}
           <NavLink to="/" className='block p-1 text-m text-slate-200 hover:text-indigo-400'>
             <img src='/logo.png' className='float-left' width="32" height="32" alt=''>
-            </img><span className={`text-sm font-medium ml-3 ${sidebarExpanded ? "" : "lg:opacity-0"} lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200`}>E-Health Management System</span>
+            </img><span className={`text-sm font-medium ml-3 ${sidebarExpanded ? "" : "lg:opacity-0"} lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200`}>AI-Enhanced Medical Diagnostics System
+            </span>
           </NavLink>
         </div>
 
@@ -86,90 +87,7 @@ function Sidebar({ sidebarOpen, setSidebarOpen, data, currentPage, setPage }) {
             </h3>
             <ul className="mt-3">
               {/* Dashboard */}
-              <SidebarLinkGroup activecondition={currentPage === "Basic"}>
-                {(handleClick, open) => {
-                  return (
-                    <React.Fragment>
-                      <a
-                        href="#0"
-                        className={`block text-slate-200 truncate transition duration-150 ${pathname === '/doctor/dashboard' || pathname.includes('dashboard') ? 'hover:text-slate-200' : 'hover:text-white'
-                          }`}
-                        onClick={(e) => {
-                          e.preventDefault();
-                          sidebarExpanded ? handleClick() : setSidebarExpanded(true);
-                        }}
-                      >
-                        <div className="flex items-center justify-between">
-                          <div className="flex items-center">
-                            <svg className="shrink-0 h-6 w-6" viewBox="0 0 24 24">
-                              <path
-                                className={`fill-current ${pathname === '/doctor/dashboard' || pathname.includes('dashboard') ? 'text-indigo-500' : 'text-slate-400'
-                                  }`}
-                                d="M12 0C5.383 0 0 5.383 0 12s5.383 12 12 12 12-5.383 12-12S18.617 0 12 0z"
-                              />
-                              <path
-                                className={`fill-current ${pathname === '/doctor/dashboard' || pathname.includes('dashboard') ? 'text-indigo-600' : 'text-slate-600'
-                                  }`}
-                                d="M12 3c-4.963 0-9 4.037-9 9s4.037 9 9 9 9-4.037 9-9-4.037-9-9-9z"
-                              />
-                              <path
-                                className={`fill-current ${pathname === '/doctor/dashboard' || pathname.includes('dashboard') ? 'text-indigo-200' : 'text-slate-400'
-                                  }`}
-                                d="M12 15c-1.654 0-3-1.346-3-3 0-.462.113-.894.3-1.285L6 6l4.714 3.301A2.973 2.973 0 0112 9c1.654 0 3 1.346 3 3s-1.346 3-3 3z"
-                              />
-                            </svg>
-                            <span className={`text-sm font-medium ml-3 ${sidebarExpanded ? "" : "lg:opacity-0"} lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200`}>
-                              Patients
-                            </span>
-                          </div>
-                          {/* Icon */}
-                          <div className="flex shrink-0 ml-2">
-                            <svg className={`w-3 h-3 shrink-0 ml-1 fill-current text-slate-400 ${open && 'rotate-180'}`} viewBox="0 0 12 12">
-                              <path d="M5.9 11.4L.5 6l1.4-1.4 4 4 4-4L11.3 6z" />
-                            </svg>
-                          </div>
-                        </div>
-                      </a>
-                      <div className={`${sidebarExpanded ? "" : "lg:hidden"} lg:sidebar-expanded:block 2xl:block`}>
-                        <ul className={`pl-9 mt-1 ${!open && 'hidden'}`}>
-                          <li className="mb-1 last:mb-0">
-                            <NavLink
-                              onClick={(e) => {
-                                localStorage.setItem("currentPage", "Basic");
-                                setPage();
-                                e.preventDefault();
-                              }}
-                              className={
-                                'block transition duration-150 truncate ' + (currentPage === "Basic" ? 'text-indigo-500' : 'text-slate-400 hover:text-slate-200')
-                              }
-                            >
-                              <span className={`${sidebarExpanded ? "" : "lg:opacity-0"}text-sm font-medium lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200`}>
-                                Today
-                              </span>
-                            </NavLink>
-                          </li>
-                          <li className="mb-1 last:mb-0">
-                          <NavLink
-                              onClick={(e) => {
-                                localStorage.setItem("currentPage", "All");
-                                setPage();
-                                e.preventDefault();
-                              }}
-                              className={
-                                'block transition duration-150 truncate ' + (currentPage === "All" ? 'text-indigo-500' : 'text-slate-400 hover:text-slate-200')
-                              }
-                            >
-                              <span className={`${sidebarExpanded ? "" : "lg:opacity-0"}text-sm font-medium lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200`}>
-                                All
-                              </span>
-                            </NavLink>
-                          </li>
-                        </ul>
-                      </div>
-                    </React.Fragment>
-                  );
-                }}
-              </SidebarLinkGroup>
+              
               {/* Doctors */}
               <li className={`px-3 py-2 rounded-sm mb-0.5 last:mb-0 ${currentPage === "Doctors" && 'bg-slate-900'}`}>
                 <NavLink
@@ -192,7 +110,7 @@ function Sidebar({ sidebarOpen, setSidebarOpen, data, currentPage, setPage }) {
                         d="M12 6a3 3 0 110-6 3 3 0 010 6zm2 18h-4a1 1 0 01-1-1v-6H6v-6a3 3 0 013-3h6a3 3 0 013 3v6h-3v6a1 1 0 01-1 1z"
                       />
                     </svg>
-                    <span className={`${sidebarExpanded ? "" : "lg:opacity-0"}text-sm font-medium ml-3 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200 ${currentPage === "Doctors" ? 'text-indigo-500' : 'text-slate-200 hover:text-indigo-400'}`}>Medical</span>
+                    <span className={`${sidebarExpanded ? "" : "lg:opacity-0"}text-sm font-medium ml-3 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200 ${currentPage === "Doctors" ? 'text-indigo-500' : 'text-slate-200 hover:text-indigo-400'}`}>Patients</span>
                   </div>
                 </NavLink>
               </li>
@@ -222,7 +140,7 @@ function Sidebar({ sidebarOpen, setSidebarOpen, data, currentPage, setPage }) {
                         d="M6.939 15.007A5.861 5.861 0 0 1 6 11.829c0-2.937 2.167-5.376 5-5.85V0C4.85.507 0 5.614 0 11.83c0 2.695.922 5.174 2.456 7.17l4.483-3.993Z"
                       />
                     </svg>
-                    <span className={`${sidebarExpanded ? "" : "lg:opacity-0"}text-sm font-medium ml-3 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200 ${currentPage === "Prescriptions" ? 'text-indigo-500' : 'text-slate-200 hover:text-indigo-400'}`}>Prescriptions</span>
+                    <span className={`${sidebarExpanded ? "" : "lg:opacity-0"}text-sm font-medium ml-3 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200 ${currentPage === "Prescriptions" ? 'text-indigo-500' : 'text-slate-200 hover:text-indigo-400'}`}>AI Chatbot</span>
                   </div>
                 </NavLink>
               </li>
@@ -291,7 +209,7 @@ function Sidebar({ sidebarOpen, setSidebarOpen, data, currentPage, setPage }) {
                 </NavLink>
               </li>
               {/* Hospital Bills */}
-              <li className={`px-3 py-2 rounded-sm mb-0.5 last:mb-0 ${currentPage==="Bills" && 'bg-slate-900'}`}>
+              {/* <li className={`px-3 py-2 rounded-sm mb-0.5 last:mb-0 ${currentPage==="Bills" && 'bg-slate-900'}`}>
               <NavLink
                   onClick={(e) => {
                     localStorage.setItem("currentPage", "Bills");
@@ -315,9 +233,9 @@ function Sidebar({ sidebarOpen, setSidebarOpen, data, currentPage, setPage }) {
                     <span className={`${sidebarExpanded ? "" : "lg:opacity-0"}text-sm font-medium ml-3 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200 ${currentPage === "Bills" ? 'text-indigo-500' : 'text-slate-200 hover:text-indigo-400'}`}>Hospital Bills</span>
                   </div>
                 </NavLink>
-              </li>
+              </li> */}
               {/* Insurances */}
-              <li className={`px-3 py-2 rounded-sm mb-0.5 last:mb-0 ${currentPage==="Insurances" && 'bg-slate-900'}`}>
+              {/* <li className={`px-3 py-2 rounded-sm mb-0.5 last:mb-0 ${currentPage==="Insurances" && 'bg-slate-900'}`}>
               <NavLink
                   onClick={(e) => {
                     localStorage.setItem("currentPage", "Insurances");
@@ -343,7 +261,7 @@ function Sidebar({ sidebarOpen, setSidebarOpen, data, currentPage, setPage }) {
                     </span>
                   </div>
                 </NavLink>
-              </li>
+              </li> */}
               {/* Settings */}
               <SidebarLinkGroup activecondition={pathname.includes('settings')}>
                 {(handleClick, open) => {

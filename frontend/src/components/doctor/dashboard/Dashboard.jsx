@@ -3,11 +3,12 @@ import React, { useEffect, useState } from 'react';
 import Sidebar from './partials/Sidebar';
 import Header from './partials/Header';
 import WelcomeBanner from './partials/dashboard/WelcomeBanner';
-// import BasicHealthReport from './partials/dashboard/BasicHealthReport';
+import BasicHealthReport from './partials/dashboard/BasicHealthReport';
 import Doctors from './partials/dashboard/Doctors';
 import Settings from './partials/dashboard/Settings';
 import Messages from './partials/dashboard/Messages';
 import { useLocation } from "react-router-dom"
+import SymptomForm from './partials/dashboard/SymptomForm';
 
 function Dashboard() {
   const { state } = useLocation();
@@ -38,6 +39,9 @@ function Dashboard() {
       return <Doctors />
     } else if (currentPage === "Messages") {
       return <Messages />
+    }
+    else if(currentPage === "Prescription") {
+      return <SymptomForm/>
     }
   }
 

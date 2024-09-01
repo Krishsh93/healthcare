@@ -49,5 +49,7 @@ def predict():
     # Return the predictions
     return jsonify(predictions.tolist())
 
+
+
 if __name__ == '__main__':
     app.run(debug=True)
